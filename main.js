@@ -73,7 +73,13 @@ function game() {
 			{
 				type: "input",
 				message: "Question " + (count + 1) + "\n" + quest[count].cloze + "\n",
-				name: "answer"
+				name: "answer",
+				validate: function(value) {
+					if (value === "") {
+						return false;
+					}
+					return true;
+				}
 			}
 		]).then(function(res) {
 			if (capitalize(res.answer) === capitalize(answers[count])) {
@@ -94,7 +100,13 @@ function game() {
 		});
 	}
 	else {
-		console.log("You've finished 15 questions already. Here is what you've done: \nCorrect: " + correct + "\nIncorrect: " + incorrect);
+		console.log("You've finished 15 questions already. Here is what you've done: \nCorrect: " + correct + "\nIncorrect: " + incorrect + "\n");
+		if (correct === 15) {
+			console.log("Amazing! You answered all questions correctly!");
+		}
+		else if (correct < 15 && correct > 7) {
+			console.log("Good job, " + username + "!");
+		};
 		console.log("\n--------------------------------------\n");
 		inquirer.prompt([
 			{
